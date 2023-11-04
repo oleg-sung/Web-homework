@@ -1,0 +1,28 @@
+POST http://127.0.0.1:5000/ads/
+Content-Type: application/json
+
+{
+"title": "Игрушки",
+"text": "Лего звездные воины",
+"owner": "Дмитрий"
+}
+
+###
+
+GET http://127.0.0.1:5000/ads/1/
+Content-Type: application/json
+
+###
+
+PATCH http://127.0.0.1:5000/ads/1/
+Content-Type: application/json
+
+{
+  "text": "Плюшевый медведь"
+}
+
+###
+
+DELETE http://127.0.0.1:5000/ads/1/
+Content-Type: application/json
+

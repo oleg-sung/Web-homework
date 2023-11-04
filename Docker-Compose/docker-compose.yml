@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  db-postgres:
+    image: postgres:11.0-alpine
+    environment:
+      POSTGRES_USER: user_db
+      POSTGRES_PASSWORD: user_pass
+      POSTGRES_DB: db_api
+    ports:
+      - 5432:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    hostname: db-postgres
+
+  api:
+    build: ./app
+    command: sh ./run.sh
+    depends_on:
+      - db-postgres
+    volumes:
+      - ./app/:/usr/src/app/
+      - ./static:/usr/src/app/static/
+    ports:
+      - 8000:8000
+    env_file: 
+      - .env
+    networks:
+      - backend
+    hostname: api
+
+  nginx:
+    build: ./nginx
+    depends_on:
+      - api
+    ports:
+      - 8080:80
+    networks:
+      - backend
+    hostname: nginx
+
+networks:
+  backend:
+    name: backend
+
+volumes:
+  pg-data:

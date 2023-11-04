@@ -1,0 +1,27 @@
+POST {{baseurl}}/ad/
+Content-Type: application/json
+
+{
+  "title": "Игрушки",
+  "text": "Лего звездные воины",
+  "owner": "Дмитрий"
+}
+
+###
+
+GET {{baseurl}}/ad/1/
+Content-Type: application/json
+
+###
+
+PATCH {{baseurl}}/ad/1/
+Content-Type: application/json
+
+{
+  "title": "Конструктор"
+}
+
+###
+
+DELETE {{baseurl}}/ad/1/
+Content-Type: application/json

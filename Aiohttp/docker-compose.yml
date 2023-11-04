@@ -1,0 +1,27 @@
+version: '3.9'
+
+volumes:
+  pgdata:
+
+services:
+  db:
+    image: postgres:14.3-alpine3.15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  backend:
+   build: ./aiohttp_hw
+   ports:
+     - "8080:8080"
+   env_file:
+     - .env
+   depends_on:
+     - db
+   command: python server.py
